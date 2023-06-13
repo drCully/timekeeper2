@@ -15,11 +15,19 @@ const app = express()
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 app.use(cookieParser())
-
-// Set path to frontend in production site
+/* 
+// Serve frontend in production site
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../frontend/build')))
-}
+  console.log('Using PRODUCTION site')
+  app.use('/', express.static(path.join(__dirname, '../frontend/build')))
+  app.get('/', (req, res) =>
+    res.sendFile(path.join(__dirname, '../', 'frontend', 'build', 'index.html'))
+  )
+} else {
+  console.log('Using DEVELOPMENT site')
+} */
+
+app.use(express.static(path.join(__dirname, '../frontend/build')))
 
 // routes
 app.use('/register', require('./routes/registerRoutes'))
@@ -35,18 +43,9 @@ app.use('/tasks', require('./routes/api/taskRoutes'))
 app.use('/timeslips', require('./routes/api/timeslipRoutes'))
 app.use('/users', require('./routes/api/userRoutes'))
 
-// Serve frontend in production site
-if (process.env.NODE_ENV === 'production') {
-  console.log('Using PRODUCTION site')
-  app.get('*', (req, res) =>
-    res.sendFile(
-      path.resolve(__dirname, '../', 'frontend', 'build', 'index.html')
-    )
-  )
-} else {
-  console.log('Using DEVELOPMENT site')
-}
-
+app.get('/*', (req, res) =>
+  res.sendFile(path.join(__dirname, '../', 'frontend', 'build', 'index.html'))
+)
 mongoose.connection.once('open', () => {
   console.log('Connected to MongoDB')
   app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
