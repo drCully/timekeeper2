@@ -178,14 +178,6 @@ const User = () => {
     navigate('/users')
   }
 
-  /*   const options = Object.entries(ROLES).map(([role, code]) => {
-    return (
-      <option key={code} value={code}>
-        {role}: {code}
-      </option>
-    )
-  }) */
-
   const options = Object.values(ROLES).map((role) => {
     return (
       <option key={role} value={role}>

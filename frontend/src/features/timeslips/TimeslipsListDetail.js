@@ -1,7 +1,9 @@
 import { useState, useEffect, useMemo } from 'react'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { format, parseISO } from 'date-fns'
-import { FaRegEdit } from 'react-icons/fa'
+import useAuth from '../../hooks/useAuth'
+import { toast } from 'react-toastify'
+import { FaRegEdit, FaRegTrashAlt } from 'react-icons/fa'
 import {
   useTable,
   useFlexLayout,
@@ -10,51 +12,62 @@ import {
   useSortBy,
 } from 'react-table'
 import { TableLayout } from '../../components/TableLayout'
-import { useTimeslipsQuery } from './timeslipsApiSlice'
+import {
+  useTimeslipsQuery,
+  useDeleteTimeslipMutation,
+} from './timeslipsApiSlice'
 
-export function TimeslipsListDetail({ searchBilling, billedStatus }) {
+export function TimeslipsListDetail() {
+  const timekeeper = useAuth().userId
+  const { lastDate } = useSelector((state) => state.session)
+
   const {
     data: timeslips,
     isLoading,
     isSuccess,
-  } = useTimeslipsQuery(`description=${searchBilling}&billed=${billedStatus}`, {
+  } = useTimeslipsQuery(`date=${lastDate}&timekeeper=${timekeeper}`, {
     refetchOnMountOrArgChange: true,
   })
 
   const [tableData, setTableData] = useState(null)
+  const [deleteTime] = useDeleteTimeslipMutation()
 
   useEffect(() => {
-    setTableData(timeslips)
-  }, [timeslips])
+    if (isSuccess) {
+      setTableData(timeslips)
+    }
+  }, [isSuccess, timeslips])
 
   if (isLoading || !tableData) {
     return <div>Loading...</div>
   }
 
-  return <TableInstance tableData={tableData} />
+  const handleDelete = async (id) => {
+    if (window.confirm('Are you sure you want to delete this time record? ')) {
+      await deleteTime(id)
+      toast.success('Time Record Deleted Successfully')
+    }
+  }
+
+  return <TableInstance tableData={tableData} handleDelete={handleDelete} />
 }
 
 const TableInstance = ({ tableData, handleDelete }) => {
   const [columns, data] = useMemo(() => {
     const columns = [
       {
-        Header: 'Date',
-        accessor: 'date',
-        Cell: ({ value }) => (
-          <div style={{ textAlign: 'center' }}>
-            {format(parseISO(value), 'MM/dd/yyyy')}
-          </div>
-        ),
-        width: 45,
-        minWidth: 45,
-        maxWidth: 45,
-      },
-      {
         Header: 'Client',
         accessor: 'client.name',
         width: 70,
         minWidth: 70,
         maxWidth: 70,
+      },
+      {
+        Header: 'Task',
+        accessor: 'task.name',
+        width: 40,
+        minWidth: 40,
+        maxWidth: 40,
       },
       {
         Header: 'Hours',
@@ -104,7 +117,7 @@ const TableInstance = ({ tableData, handleDelete }) => {
         align: 'center',
         Cell: ({ row }) => (
           <div style={{ textAlign: 'center' }}>
-            <Link to={`/timeslip/${row.original._id}`}>
+            <Link to={`/timeslips/${row.original._id}`}>
               <FaRegEdit
                 style={{
                   color: 'green',
@@ -112,6 +125,13 @@ const TableInstance = ({ tableData, handleDelete }) => {
                 }}
               />
             </Link>
+            <FaRegTrashAlt
+              style={{
+                cursor: 'pointer',
+                color: 'red',
+              }}
+              onClick={() => handleDelete(row.original._id)}
+            />
           </div>
         ),
       },
@@ -123,11 +143,7 @@ const TableInstance = ({ tableData, handleDelete }) => {
       columns,
       data,
       defaultColumn,
-      initialState: {
-        pageIndex: 0,
-        pageSize: 15,
-        sortBy: [{ id: 'date', desc: false }],
-      },
+      initialState: { pageIndex: 0, pageSize: 15 },
     },
     useFlexLayout,
     useSortBy,

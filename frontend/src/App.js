@@ -22,9 +22,8 @@ import Profile from './features/profile/Profile'
 import ProfileHours from './features/profile/ProfileHours'
 import TasksList from './features/tasks/TasksList'
 import Task from './features/tasks/Task'
-import Timesheet from './features/timeslips/Timesheet'
-import Timeslip from './features/timeslips/Timeslip'
 import Timeslips from './features/timeslips/TimeslipsList'
+import TimeslipAddEdit from './features/timeslips/Timeslip'
 import Users from './features/users/UsersList'
 import UserAddEdit from './features/users/User'
 
@@ -58,7 +57,6 @@ function App() {
                   <RequireAuth allowedRoles={[...Object.values(ROLES)]} />
                 }
               >
-                <Route path='/billings' element={<Billing />} />
                 <Route path='/clients' element={<ClientsList />} />
                 <Route path='/client' element={<Client />} />
                 <Route path='/client/:id' element={<Client />} />
@@ -67,10 +65,14 @@ function App() {
                 <Route path='/tasks' element={<TasksList />} />
                 <Route path='/task' element={<Task />} />
                 <Route path='/task/:id' element={<Task />} />
-                <Route path='/timesheets' element={<Timesheet />} />
+                {/*                 <Route path='/timeslips' element={<TimeslipsList />} />
                 <Route path='/timeslip' element={<Timeslip />} />
-                <Route path='/timeslip/:id' element={<Timeslip />} />
-                <Route path='/timeslips' element={<Timeslips />} />
+                <Route path='/timeslip/:id' element={<Timeslip />} /> */}
+                <Route path='timeslips'>
+                  <Route index element={<Timeslips />} />
+                  <Route path=':id' element={<TimeslipAddEdit />} />
+                  <Route path='add' element={<TimeslipAddEdit />} />
+                </Route>
 
                 <Route
                   element={

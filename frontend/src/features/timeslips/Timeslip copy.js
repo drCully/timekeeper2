@@ -42,16 +42,6 @@ const Timeslip = () => {
   )
   const dispatch = useDispatch()
 
-  let { id } = useParams()
-  if (!id) {
-    id = ''
-  }
-
-  const { data, error } = useTimeslipQuery(id)
-  const { data: clientlookup } = useClientLookupQuery()
-  const { data: tasklookup } = useTaskLookupQuery()
-  const { data: userlookup } = useUserLookupQuery()
-
   const initialValues = {
     date: lastDate,
     timekeeper: currentUser.userId,
@@ -82,6 +72,11 @@ const Timeslip = () => {
   } = formValues
 
   const navigate = useNavigate()
+  const { id } = useParams()
+  const { data, error } = useTimeslipQuery(id)
+  const { data: clientlookup } = useClientLookupQuery()
+  const { data: tasklookup } = useTaskLookupQuery()
+  const { data: userlookup } = useUserLookupQuery()
 
   useEffect(() => {
     if (error && id) {
@@ -109,7 +104,8 @@ const Timeslip = () => {
     setFormValues({ ...formValues, [name]: value })
   }
 
-  const handleSave = async (e) => {
+  const handleSubmit = async (event) => {
+    event.preventDefault()
     if (!date && !timekeeper && !client && !description && !rate) {
       toast.error('Please complete each input field')
     } else {
@@ -136,7 +132,7 @@ const Timeslip = () => {
 
   return (
     <SFixedContainer maxwidth={`${s.md}`}>
-      <SForm onSubmit={(e) => e.preventDefault()}>
+      <SForm onSubmit={handleSubmit}>
         <SFormTitle>{editMode ? 'Edit Time' : 'Add Time'}</SFormTitle>
         <SFlexRow>
           <SFlexCol>
@@ -286,7 +282,7 @@ const Timeslip = () => {
         )}
         <SFlexContainer>
           <div hidden={billed}>
-            <SButton onClick={handleSave} margin='.5rem'>
+            <SButton type='submit' margin='.5rem'>
               {editMode ? 'Update' : 'Save'}
             </SButton>
           </div>

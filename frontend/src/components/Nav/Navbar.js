@@ -16,7 +16,7 @@ Navbar.defaultProps = {
   navLinks: [
     {
       label: 'Time',
-      link: '/timesheets',
+      link: '/timeslips',
       submenu: null,
     },
     {

@@ -17,7 +17,7 @@ router
     verifyRoles(ROLES_LIST.Admin, ROLES_LIST.Editor),
     userController.createUser
   )
-
+router.route('/lookup').get(userController.lookupUser)
 router
   .route('/:id')
   .get(verifyRoles(ROLES_LIST.Admin, ROLES_LIST.Editor), userController.getUser)

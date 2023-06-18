@@ -134,7 +134,7 @@ const deleteUser = asyncHandler(async (req, res) => {
 // @desc    User lookup list
 // @route   GET /users/lookup
 // @access  Public
-const userLookup = asyncHandler(async (req, res) => {
+const lookupUser = asyncHandler(async (req, res) => {
   const users = await User.find(
     { isActive: true },
     { _id: 1, firstName: 1, lastName: 1 }
@@ -150,5 +150,5 @@ module.exports = {
   getUser,
   updateUser,
   deleteUser,
-  userLookup,
+  lookupUser,
 }

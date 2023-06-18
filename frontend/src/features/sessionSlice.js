@@ -1,45 +1,45 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { subDays, addDays, format, parseISO } from 'date-fns';
+import { createSlice } from '@reduxjs/toolkit'
+import { subDays, addDays, format, parseISO } from 'date-fns'
 
 const initialState = {
-  timesheetDate: format(new Date(), 'yyyy-MM-dd'),
+  lastDate: format(new Date(), 'yyyy-MM-dd'),
   lastClient: '',
   lastTask: '',
-};
+}
 
 const sessionSlice = createSlice({
   name: 'sesson',
   initialState,
   reducers: {
-    setTimesheetDate: (state, action) => {
-      state.timesheetDate = action.payload;
+    setLastDate: (state, action) => {
+      state.lastDate = action.payload
     },
     previousDate: (state) => {
-      state.timesheetDate = format(
-        subDays(parseISO(state.timesheetDate), 1),
+      state.lastDate = format(
+        subDays(parseISO(state.lastDate), 1),
         'yyyy-MM-dd'
-      );
+      )
     },
     nextDate: (state) => {
-      state.timesheetDate = format(
-        addDays(parseISO(state.timesheetDate), 1),
+      state.lastDate = format(
+        addDays(parseISO(state.lastDate), 1),
         'yyyy-MM-dd'
-      );
+      )
     },
     setLastClient: (state, action) => {
-      state.lastClient = action.payload;
+      state.lastClient = action.payload
     },
     setLastTask: (state, action) => {
-      state.lastTask = action.payload;
+      state.lastTask = action.payload
     },
   },
-});
+})
 
 export const {
-  setTimesheetDate,
+  setLastDate,
   previousDate,
   nextDate,
   setLastClient,
   setLastTask,
-} = sessionSlice.actions;
-export default sessionSlice.reducer;
+} = sessionSlice.actions
+export default sessionSlice.reducer

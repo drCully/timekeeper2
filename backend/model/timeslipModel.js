@@ -29,4 +29,4 @@ const timeslipSchema = new Schema(
   { timestamps: true }
 )
 
-module.exports = mongoose.model('Timesheet', timeslipSchema)
+module.exports = mongoose.model('Timeslip', timeslipSchema)

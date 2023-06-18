@@ -1,5 +1,3 @@
-//import mongoose from 'mongoose'
-//import sequence from 'mongoose-sequence'
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const AutoIncrement = require('mongoose-sequence')(mongoose)
