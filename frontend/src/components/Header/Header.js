@@ -5,7 +5,7 @@ import useAuth from '../../hooks/useAuth'
 import { uiActions } from '../../features/uiSlice'
 
 import Navbar from '../Nav/Navbar'
-import ProfileNav from '../Nav/ProfileNav'
+import Navuser from '../Nav/Navuser'
 import {
   SCenter,
   SHeader,
@@ -17,7 +17,7 @@ import {
   SBrand,
   SMenu,
   SRight,
-} from './headerStyles'
+} from '../../styles/headerStyles'
 import LogoImg from './logo.png'
 
 const Header = () => {
@@ -57,7 +57,7 @@ const Header = () => {
           <SCenter>
             {isEditor ? <Navbar /> : isAdmin ? <Navbar /> : null}
           </SCenter>
-          <SRight>{userName ? <ProfileNav /> : null}</SRight>
+          <SRight>{userName ? <Navuser /> : null}</SRight>
         </SHeader>
       </SHeaderFixed>
       <SMenu style={menuOpen ? { left: 0 } : {}}>

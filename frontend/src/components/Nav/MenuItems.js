@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import Dropdown from './Dropdown/Dropdown'
+import Dropdown from './Dropdown'
 import {
   SArrowContainer,
   SArrowIcon,

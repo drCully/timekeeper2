@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import useAuth from '../../hooks/useAuth'
 import { useSendSignoutMutation } from '../../features/auth/authApiSlice'
 import {
@@ -9,16 +10,17 @@ import {
   SNavLink,
   SNavLinkContainer,
   SProfile,
-  SProfileDropdown,
+  SDropdown,
   SProfileLink,
 } from '../../styles/navStyles'
 import { FaUser } from 'react-icons/fa'
 
-const ProfileNav = ({ navLinks }) => {
+const Navuser = ({ navLinks }) => {
   const { userName } = useAuth()
   const [dropdown, setDropdown] = useState(false)
   const [sendSignout] = useSendSignoutMutation()
   let ref = useRef()
+  const navigate = useNavigate()
 
   useEffect(() => {
     const handler = (event) => {
@@ -49,32 +51,34 @@ const ProfileNav = ({ navLinks }) => {
         ref={ref}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
+        onClick={(e) => {
+          navigate('/profile')
+        }}
       >
         <SNavLabelContainer
           role='button'
-          to={'/'}
           aria-expanded={dropdown ? 'true' : 'false'}
           onClick={() => setDropdown((prev) => !prev)}
         >
-          <FaUser style={{ marginRight: '4px' }} /> {userName}
+          <FaUser style={{ marginRight: '10px' }} /> {userName}
           <SArrowContainer isOpen={dropdown}>
             <SArrowIcon />
           </SArrowContainer>
         </SNavLabelContainer>
-        <SProfileDropdown isOpen={dropdown}>
+        <SDropdown top={'38px'} isOpen={dropdown}>
           {navLinks.map((items, index) => (
             <SNavLinkContainer key={index}>
               <SNavLink to={items.link}>{items.label}</SNavLink>
             </SNavLinkContainer>
           ))}
           <SProfileLink onClick={sendSignout}>Sign Out</SProfileLink>
-        </SProfileDropdown>
+        </SDropdown>
       </SProfile>
     </SNav>
   )
 }
 
-ProfileNav.defaultProps = {
+Navuser.defaultProps = {
   navLinks: [
     {
       label: 'Profile',
@@ -83,4 +87,4 @@ ProfileNav.defaultProps = {
   ],
 }
 
-export default ProfileNav
+export default Navuser

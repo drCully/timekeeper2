@@ -37,7 +37,7 @@ export const SNavLinkContainer = styled.div`
 export const SNavLink = styled(NavLink)`
   text-decoration: none;
   color: inherit;
-  padding: 0.7rem 1rem;
+  padding: ${({ padding }) => (padding ? padding : '0.5rem 1rem')};
 
   &.active {
     color: #eb6f16;
@@ -82,19 +82,12 @@ export const SArrowIcon = styled(IoMdArrowDropdown)`
   display: block;
   margin-left: 4px;
 `
-export const SProfile = styled.div`
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  cursor: pointer;
-  width: 100%;
-  color: ${({ theme }) => theme.primary};
-`
-export const SProfileDropdown = styled.div`
+export const SDropdown = styled.div`
   position: absolute;
-  top: 40px;
+  top: ${({ top }) => (top ? top : '47px')};
   right: 0;
   left: auto;
+  width: 10rem;
   white-space: nowrap;
   padding: ${v.smSpacing};
   background: ${({ theme }) => theme.bg};
@@ -104,13 +97,22 @@ export const SProfileDropdown = styled.div`
   color: ${({ theme }) => theme.text};
 
   @media ${b.md} {
-    min-width: 120%;
+    min-width: 100%;
     position: absolute;
   }
 `
+export const SProfile = styled.div`
+  user-select: none;
+  position: relative;
+  //display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  width: 100%;
+  color: ${({ theme }) => theme.primary};
+`
 export const SProfileLink = styled.div`
   cursor: pointer;
-  padding: 0.7rem 1rem;
+  padding: 0.5rem 1rem;
 
   &.active {
     color: #959faa;

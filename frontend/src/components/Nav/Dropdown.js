@@ -1,5 +1,5 @@
-import MenuItems from '../MenuItems'
-import { SDropdown } from './dropdownStyles'
+import MenuItems from './MenuItems'
+import { SDropdown } from '../../styles/navStyles'
 
 const Dropdown = ({ submenus, dropdown, depthLevel }) => {
   depthLevel = depthLevel + 1

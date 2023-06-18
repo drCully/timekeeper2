@@ -73,7 +73,7 @@ export function InvoiceCreateDetail() {
       field: 'id',
       cellRendererFramework: (params) => (
         <div>
-          <Link to={`/timeslip/${params.data._id}`}>
+          <Link to={`/timeslips/${params.data._id}`}>
             <FaRegEdit
               style={{
                 color: 'green',

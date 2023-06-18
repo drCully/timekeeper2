@@ -1,10 +1,10 @@
-import styled, { css } from 'styled-components';
-import { Link } from 'react-router-dom';
+import styled, { css } from 'styled-components'
+import { Link } from 'react-router-dom'
 
-import { v, b } from '../../styles/variables';
+import { v, b } from './variables'
 
-import { HiMenuAlt3 } from 'react-icons/hi';
-import { IoMdClose } from 'react-icons/io';
+import { HiMenuAlt3 } from 'react-icons/hi'
+import { IoMdClose } from 'react-icons/io'
 
 const btnReset = css`
   cursor: pointer;
@@ -16,11 +16,11 @@ const btnReset = css`
   letter-spacing: inherit;
   font-size: inherit;
   padding: 0;
-`;
+`
 
 export const SHeaderHeight = styled.div`
   height: ${v.headerHeight};
-`;
+`
 
 export const SHeaderFixed = styled.div`
   position: fixed;
@@ -30,7 +30,7 @@ export const SHeaderFixed = styled.div`
   height: ${v.headerHeight};
   background: ${({ theme }) => theme.bg};
   z-index: 10;
-`;
+`
 
 export const SHeader = styled.header`
   margin: 0 auto;
@@ -48,12 +48,12 @@ export const SHeader = styled.header`
   > div {
     flex: 1;
   }
-`;
+`
 
 export const SLeft = styled.div`
   display: flex;
   align-items: center;
-`;
+`
 
 export const SCenter = styled.div`
   height: 100%;
@@ -64,12 +64,12 @@ export const SCenter = styled.div`
   @media ${b.md} {
     display: flex;
   }
-`;
+`
 export const SRight = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-`;
+`
 
 // Left
 export const SLogoLink = styled(Link)`
@@ -77,17 +77,17 @@ export const SLogoLink = styled(Link)`
   width: 30px;
   color: inherit;
   text-decoration: none;
-`;
+`
 
 export const SLogo = styled.img`
   max-width: 30px;
   height: 30px;
-`;
+`
 
 export const SBrand = styled.span`
   margin-left: 10px;
   font-size: 20px;
-`;
+`
 
 // Center
 // nav
@@ -110,7 +110,7 @@ export const SCTAButton = styled(Link)`
   @media ${b.md} {
     display: initial;
   }
-`;
+`
 
 export const SMenuToggleButton = styled.button`
   ${btnReset}
@@ -121,19 +121,19 @@ export const SMenuToggleButton = styled.button`
   @media ${b.md} {
     display: none;
   }
-`;
+`
 
 const iconStyles = css`
   display: block;
   width: 100%;
   height: 100%;
-`;
+`
 export const SMenuIcon = styled(HiMenuAlt3)`
   ${iconStyles}
-`;
+`
 export const SCloseIcon = styled(IoMdClose)`
   ${iconStyles}
-`;
+`
 
 // Menu
 export const SMenu = styled.div`
@@ -152,4 +152,4 @@ export const SMenu = styled.div`
   @media ${b.md} {
     display: none;
   }
-`;
+`
