@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
+import { format } from 'date-fns'
 import { SButtonLink } from '../../styles/buttonStyles'
 import { s } from '../../styles/variables'
 import { SFixedContainer, SFlexContainer } from '../../styles/containerStyles'
@@ -14,8 +15,12 @@ import { TimeslipsListDetail } from './TimeslipsListDetail'
 import { setLastDate, previousDate, nextDate } from '../sessionSlice'
 
 const TimeslipsList = () => {
-  const { lastDate } = useSelector((state) => state.session)
   const dispatch = useDispatch()
+  const { lastDate } = useSelector((state) => state.session)
+  if (!lastDate) {
+    const newDate = format(new Date(), 'yyyy-MM-dd')
+    dispatch(setLastDate(newDate))
+  }
 
   const handleDateChange = (e) => {
     dispatch(setLastDate(e.target.value))
