@@ -107,7 +107,7 @@ const TableInstance = ({ tableData, handleDelete }) => {
         align: 'center',
         Cell: ({ row }) => (
           <div style={{ textAlign: 'center' }}>
-            <Link to={`/client/${row.original._id}`}>
+            <Link to={`/clients/${row.original._id}`}>
               <FaRegEdit
                 style={{
                   color: 'green',

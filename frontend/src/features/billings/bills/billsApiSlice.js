@@ -1,6 +1,6 @@
-import { apiSlice } from '../../app/api/apiSlice'
+import { apiSlice } from '../../../app/api/apiSlice'
 
-export const invoicesApiSlice = apiSlice.injectEndpoints({
+export const billsApiSlice = apiSlice.injectEndpoints({
   tagTypes: 'Invoice',
   endpoints: (builder) => ({
     invoices: builder.query({
@@ -43,4 +43,4 @@ export const {
   useDeleteInvoiceMutation,
   useCreateInvoiceMutation,
   useUpdateInvoiceMutation,
-} = invoicesApiSlice
+} = billsApiSlice

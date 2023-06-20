@@ -9,7 +9,7 @@ import {
 } from 'react-table'
 import { format, parseISO } from 'date-fns'
 import { TableLayout } from '../../components/TableLayout'
-import { useInvoicesQuery } from '../invoices/invoicesApiSlice'
+import { useInvoicesQuery } from './bills/billsApiSlice'
 
 export function BilledListDetail() {
   const { data: invoices, isLoading, isSuccess } = useInvoicesQuery()
@@ -52,7 +52,7 @@ const TableInstance = ({ tableData }) => {
         maxWidth: 30,
         Cell: ({ row }) => (
           <Link
-            to={`/invoice/${row.original._id}`}
+            to={`/billings/${row.original._id}`}
             style={{
               cursor: 'pointer',
               color: 'green',

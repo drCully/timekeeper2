@@ -12,7 +12,7 @@ const Profile = () => {
       <SFlexContainer style={{ gap: '2rem' }}>
         <User />
         <SFixedContainer maxwidth='10rem'>
-          <SButtonLink width='100%' margin='1rem' to={`/profilehours`}>
+          <SButtonLink width='100%' margin='1rem' to={`/profile/hours`}>
             Time
           </SButtonLink>
 

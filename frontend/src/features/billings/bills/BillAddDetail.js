@@ -9,12 +9,12 @@ import { AgGridReact } from 'ag-grid-react'
 import 'ag-grid-community/styles/ag-grid.css'
 import 'ag-grid-community/styles/ag-theme-alpine.css'
 
-import { useDeleteTimeslipMutation } from '../timeslips/timeslipsApiSlice'
+import { useDeleteTimeslipMutation } from '../../timeslips/timeslipsApiSlice'
 import {
   setItems,
   setTimeAmount,
   setSelectedItems,
-} from '../../features/billings/billingSlice'
+} from '../../../features/billings/billingSlice'
 
 const numberFormatter = (params) => {
   return new Intl.NumberFormat('en-US', {
@@ -23,7 +23,7 @@ const numberFormatter = (params) => {
   }).format(params.value)
 }
 
-export function InvoiceCreateDetail() {
+export function BillAddDetail() {
   const dispatch = useDispatch()
 
   const { items, selectedItems } = useSelector((state) => state.billing)

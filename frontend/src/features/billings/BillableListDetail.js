@@ -55,7 +55,7 @@ export function BillableListDetail() {
     )
   }
 
-  const handleCreateInvoice = (id, billableHours) => {
+  const handleInvoiceAdd = (id, billableHours) => {
     dispatch(setClientId(id))
     const extendedItems = timeslips
       .filter((timeslips) => timeslips.client._id === id)
@@ -67,7 +67,7 @@ export function BillableListDetail() {
     const timeAmount = extendedItems.reduce((acc, item) => acc + item.total, 0)
     dispatch(setTimeAmount(timeAmount))
     dispatch(setHours(billableHours))
-    navigate('/invoice')
+    navigate('/billings/add')
   }
 
   if (isLoading) {
@@ -75,14 +75,11 @@ export function BillableListDetail() {
   }
 
   return (
-    <TableInstance
-      tableData={tableData}
-      handleCreateInvoice={handleCreateInvoice}
-    />
+    <TableInstance tableData={tableData} handleInvoiceAdd={handleInvoiceAdd} />
   )
 }
 
-const TableInstance = ({ tableData, handleCreateInvoice }) => {
+const TableInstance = ({ tableData, handleInvoiceAdd }) => {
   const [columns, data] = useMemo(() => {
     const columns = [
       {
@@ -103,7 +100,7 @@ const TableInstance = ({ tableData, handleCreateInvoice }) => {
               color: 'green',
             }}
             onClick={() =>
-              handleCreateInvoice(row.original.clientId, row.original.hours)
+              handleInvoiceAdd(row.original.clientId, row.original.hours)
             }
           >
             {row.original.client}

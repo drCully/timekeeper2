@@ -9,19 +9,19 @@ import {
   SFlexContainer,
   SFlexRow,
   SFlexCol,
-} from '../../styles/containerStyles'
-import { SCardFull } from '../../styles/cardStyles'
+} from '../../../styles/containerStyles'
+import { SCardFull } from '../../../styles/cardStyles'
 
-import { SButton } from '../../styles/buttonStyles'
-import { s } from '../../styles/variables'
+import { SButton } from '../../../styles/buttonStyles'
+import { s } from '../../../styles/variables'
 import LogoImg from './clientlogo.png'
 
-import { useInvoiceQuery, useUpdateInvoiceMutation } from './invoicesApiSlice'
+import { useInvoiceQuery, useUpdateInvoiceMutation } from './billsApiSlice'
 import {
   useTimeslipsQuery,
   useTimeslipBillingMutation,
-} from '../timeslips/timeslipsApiSlice'
-import { InvoiceDetail } from './InvoiceDetail'
+} from '../../timeslips/timeslipsApiSlice'
+import { BillDetail } from './BillDetail'
 
 const formatNumber = (num) => {
   return num.toLocaleString('en-US', {
@@ -30,7 +30,7 @@ const formatNumber = (num) => {
   })
 }
 
-const Invoice = () => {
+const Bill = () => {
   let componentRef = useRef()
   const navigate = useNavigate()
   const { id } = useParams()
@@ -112,7 +112,7 @@ const Invoice = () => {
     </SFixedContainer>
   )
 }
-export default Invoice
+export default Bill
 
 const InvoiceToPrint = forwardRef((props, ref) => {
   const { id } = useParams()
@@ -281,7 +281,7 @@ const InvoiceToPrint = forwardRef((props, ref) => {
           </SFlexCol>
         </SFlexContainer>
         <SFixedContainer margin='1rem 0 5rem 0'>
-          <InvoiceDetail invoice={invoiceData._id} />
+          <BillDetail invoice={invoiceData._id} />
         </SFixedContainer>
       </SFixedContainer>
     </SFixedContainer>

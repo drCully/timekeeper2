@@ -8,27 +8,27 @@ import {
   SFlexContainer,
   SFlexRow,
   SFlexCol,
-} from '../../styles/containerStyles'
+} from '../../../styles/containerStyles'
 import {
   SFormControl,
   SFormPlain,
   SInput,
   SLabel,
-} from '../../styles/formStyles'
-import { SButton } from '../../styles/buttonStyles'
-import { s } from '../../styles/variables'
+} from '../../../styles/formStyles'
+import { SButton } from '../../../styles/buttonStyles'
+import { s } from '../../../styles/variables'
 
-import { InvoiceCreateDetail } from './InvoiceCreateDetail'
-import { useClientQuery } from '../clients/clientsApiSlice'
-import { useCreateInvoiceMutation } from './invoicesApiSlice'
-import { useInvoiceTimeslipMutation } from '../timeslips/timeslipsApiSlice'
-import { clearBilling } from '../../features/billings/billingSlice'
+import { BillAddDetail } from './BillAddDetail'
+import { useClientQuery } from '../../clients/clientsApiSlice'
+import { useCreateInvoiceMutation } from './billsApiSlice'
+import { useInvoiceTimeslipMutation } from '../../timeslips/timeslipsApiSlice'
+import { clearBilling } from '../billingSlice'
 
 const addDecimals = (num) => {
   return (Math.round(num * 100) / 100).toFixed(2)
 }
 
-const InvoiceCreate = () => {
+const BillAdd = () => {
   const { asOfDate, clientId, items, timeAmount, hours } = useSelector(
     (state) => state.billing
   )
@@ -100,7 +100,7 @@ const InvoiceCreate = () => {
 
   return (
     <SFixedContainer maxwidth={`${s.xl}`}>
-      <h2>Prepare Invoice</h2>
+      <h2>Prepare Bill</h2>
       <SFlexContainer justify='space-between'>
         <SFlexCol fsize='1' margin='1rem'>
           {clientData.name}
@@ -212,10 +212,10 @@ const InvoiceCreate = () => {
         </SFlexCol>
       </SFlexContainer>
       <SFixedContainer height='30rem' overflow='auto'>
-        <InvoiceCreateDetail />
+        <BillAddDetail />
       </SFixedContainer>
     </SFixedContainer>
   )
 }
 
-export default InvoiceCreate
+export default BillAdd

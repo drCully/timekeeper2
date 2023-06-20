@@ -13,11 +13,12 @@ import Signin from './features/auth/Signin'
 import RequireAuth from './features/auth/RequireAuth'
 import { ROLES } from './config/roles'
 
-import Billing from './features/billings/Billing'
-import ClientsList from './features/clients/ClientsList'
-import Client from './features/clients/Client'
-import Invoice from './features/invoices/Invoice'
-import InvoiceCreate from './features/invoices/InvoiceCreate'
+import Billings from './features/billings/Billing'
+import Bill from './features/billings/bills/Bill'
+import BillAdd from './features/billings/bills/BillAdd'
+import Clients from './features/clients/ClientsList'
+import ClientAddEdit from './features/clients/Client'
+
 import Profile from './features/profile/Profile'
 import ProfileHours from './features/profile/ProfileHours'
 import TasksList from './features/tasks/TasksList'
@@ -57,17 +58,21 @@ function App() {
                   <RequireAuth allowedRoles={[...Object.values(ROLES)]} />
                 }
               >
-                <Route path='/clients' element={<ClientsList />} />
-                <Route path='/client' element={<Client />} />
-                <Route path='/client/:id' element={<Client />} />
-                <Route path='/profile' element={<Profile />} />
-                <Route path='/profilehours' element={<ProfileHours />} />
+                <Route path='clients'>
+                  <Route index element={<Clients />} />
+                  <Route path=':id' element={<ClientAddEdit />} />
+                  <Route path='add' element={<ClientAddEdit />} />
+                </Route>
+
+                <Route path='profile'>
+                  <Route index element={<Profile />} />
+                  <Route path='hours' element={<ProfileHours />} />
+                </Route>
+
                 <Route path='/tasks' element={<TasksList />} />
                 <Route path='/task' element={<Task />} />
                 <Route path='/task/:id' element={<Task />} />
-                {/*                 <Route path='/timeslips' element={<TimeslipsList />} />
-                <Route path='/timeslip' element={<Timeslip />} />
-                <Route path='/timeslip/:id' element={<Timeslip />} /> */}
+
                 <Route path='timeslips'>
                   <Route index element={<Timeslips />} />
                   <Route path=':id' element={<TimeslipAddEdit />} />
@@ -79,9 +84,12 @@ function App() {
                     <RequireAuth allowedRoles={[ROLES.Editor, ROLES.Admin]} />
                   }
                 >
-                  <Route path='/billings' element={<Billing />} />
-                  <Route path='/invoice' element={<InvoiceCreate />} />
-                  <Route path='/invoice/:id' element={<Invoice />} />
+                  <Route path='billings'>
+                    <Route index element={<Billings />} />
+                    <Route path=':id' element={<Bill />} />
+                    <Route path='add' element={<BillAdd />} />
+                  </Route>
+
                   <Route path='users'>
                     <Route index element={<Users />} />
                     <Route path=':id' element={<UserAddEdit />} />
