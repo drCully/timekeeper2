@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useRef } from 'react'
+import { forwardRef, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { format, addHours, parseISO } from 'date-fns'
 import ReactToPrint from 'react-to-print'
@@ -16,12 +16,12 @@ import { SButton } from '../../../styles/buttonStyles'
 import { s } from '../../../styles/variables'
 import LogoImg from './clientlogo.png'
 
-import { useInvoiceQuery, useUpdateInvoiceMutation } from './billsApiSlice'
+import { useInvoiceQuery, useUpdateInvoiceMutation } from './invoicesApiSlice'
 import {
   useTimeslipsQuery,
   useTimeslipBillingMutation,
 } from '../../timeslips/timeslipsApiSlice'
-import { BillDetail } from './BillDetail'
+import { InvoiceDetail } from './InvoiceDetail'
 
 const formatNumber = (num) => {
   return num.toLocaleString('en-US', {
@@ -34,7 +34,7 @@ const Bill = () => {
   let componentRef = useRef()
   const navigate = useNavigate()
   const { id } = useParams()
-  const { data: invoice, isLoading } = useInvoiceQuery(id)
+  const { data: invoice } = useInvoiceQuery(id)
   const { data: timeslips, isSuccess } = useTimeslipsQuery(`invoice=${id}`)
 
   const [updateInvoice] = useUpdateInvoiceMutation()
@@ -127,7 +127,11 @@ const InvoiceToPrint = forwardRef((props, ref) => {
       <SFixedContainer margin='1.5rem 0 1rem 0' style={{ padding: '1.5rem' }}>
         <SFlexContainer justify='space-between' align='end'>
           <SFlexCol>
-            <img src={LogoImg} style={{ width: '70px', height: '70px' }} />
+            <img
+              src={LogoImg}
+              alt='invoice logo'
+              style={{ width: '70px', height: '70px' }}
+            />
             <p style={{ fontSize: '.7rem' }}>
               David Cully | 3611 I Street NE, 181 | Auburn, WA 98002 |
               206.683.2831
@@ -281,7 +285,7 @@ const InvoiceToPrint = forwardRef((props, ref) => {
           </SFlexCol>
         </SFlexContainer>
         <SFixedContainer margin='1rem 0 5rem 0'>
-          <BillDetail invoice={invoiceData._id} />
+          <InvoiceDetail invoice={invoiceData._id} />
         </SFixedContainer>
       </SFixedContainer>
     </SFixedContainer>

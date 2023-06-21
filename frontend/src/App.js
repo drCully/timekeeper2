@@ -14,11 +14,10 @@ import RequireAuth from './features/auth/RequireAuth'
 import { ROLES } from './config/roles'
 
 import Billings from './features/billings/Billing'
-import Bill from './features/billings/bills/Bill'
-import BillAdd from './features/billings/bills/BillAdd'
+import Invoice from './features/billings/invoice/Invoice'
+import InvoiceAdd from './features/billings/invoice/InvoiceAdd'
 import Clients from './features/clients/ClientsList'
 import ClientAddEdit from './features/clients/Client'
-
 import Profile from './features/profile/Profile'
 import ProfileHours from './features/profile/ProfileHours'
 import TasksList from './features/tasks/TasksList'
@@ -86,8 +85,8 @@ function App() {
                 >
                   <Route path='billings'>
                     <Route index element={<Billings />} />
-                    <Route path=':id' element={<Bill />} />
-                    <Route path='add' element={<BillAdd />} />
+                    <Route path=':id' element={<Invoice />} />
+                    <Route path='add' element={<InvoiceAdd />} />
                   </Route>
 
                   <Route path='users'>

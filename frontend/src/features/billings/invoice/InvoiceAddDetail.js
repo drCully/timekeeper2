@@ -3,18 +3,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 import { addHours, format, parseISO } from 'date-fns'
-import { toast } from 'react-toastify'
 import { FaRegEdit, FaRegTrashAlt } from 'react-icons/fa'
 import { AgGridReact } from 'ag-grid-react'
 import 'ag-grid-community/styles/ag-grid.css'
 import 'ag-grid-community/styles/ag-theme-alpine.css'
 
 import { useDeleteTimeslipMutation } from '../../timeslips/timeslipsApiSlice'
-import {
-  setItems,
-  setTimeAmount,
-  setSelectedItems,
-} from '../../../features/billings/billingSlice'
+import { setTimeAmount, setSelectedItems } from '../billingSlice'
 
 const numberFormatter = (params) => {
   return new Intl.NumberFormat('en-US', {
@@ -23,7 +18,7 @@ const numberFormatter = (params) => {
   }).format(params.value)
 }
 
-export function BillAddDetail() {
+export function InvoiceAddDetail() {
   const dispatch = useDispatch()
 
   const { items, selectedItems } = useSelector((state) => state.billing)
@@ -31,7 +26,7 @@ export function BillAddDetail() {
 
   const gridRef = useRef()
   const [rowData, setRowData] = useState()
-  const [columnDefs, setColumnDefs] = useState([
+  const [columnDefs] = useState([
     {
       headerName: 'Date',
       field: 'date',
@@ -102,9 +97,12 @@ export function BillAddDetail() {
     }
   }, [])
 
-  const onGridReady = useCallback((params) => {
-    setRowData(items)
-  }, [])
+  const onGridReady = useCallback(
+    (params) => {
+      setRowData(items)
+    },
+    [items]
+  )
 
   const onFirstDataRendered = useCallback((params) => {
     if (selectedItems === null) {
@@ -124,13 +122,16 @@ export function BillAddDetail() {
     }
   }, [])
 
-  const onSelectionChanged = useCallback((event) => {
-    const selectedRows = event.api.getSelectedRows()
-    dispatch(setSelectedItems(selectedRows))
+  const onSelectionChanged = useCallback(
+    (event) => {
+      const selectedRows = event.api.getSelectedRows()
+      dispatch(setSelectedItems(selectedRows))
 
-    const timeAmount = selectedRows.reduce((acc, item) => acc + item.total, 0)
-    dispatch(setTimeAmount(timeAmount))
-  }, [])
+      const timeAmount = selectedRows.reduce((acc, item) => acc + item.total, 0)
+      dispatch(setTimeAmount(timeAmount))
+    },
+    [selectedItems, dispatch]
+  )
 
   const handleDelete = async (id) => {
     /*     if (window.confirm('Are you sure you want to delete this time record? ')) {

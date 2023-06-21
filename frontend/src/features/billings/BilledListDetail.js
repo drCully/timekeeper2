@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import {
   useTable,
   useFlexLayout,
@@ -9,7 +9,7 @@ import {
 } from 'react-table'
 import { format, parseISO } from 'date-fns'
 import { TableLayout } from '../../components/TableLayout'
-import { useInvoicesQuery } from './bills/billsApiSlice'
+import { useInvoicesQuery } from './invoice/invoicesApiSlice'
 
 export function BilledListDetail() {
   const { data: invoices, isLoading, isSuccess } = useInvoicesQuery()
@@ -20,7 +20,7 @@ export function BilledListDetail() {
     if (isSuccess) {
       setTableData(invoices)
     }
-  }, [invoices])
+  }, [invoices, isSuccess])
 
   if (isLoading || !tableData) {
     return <div>Loading...</div>

@@ -1,13 +1,12 @@
 import { useMemo } from 'react'
 import { useTable, useFlexLayout, useSortBy } from 'react-table'
-import { useSelector } from 'react-redux'
 import { addHours, format, parseISO } from 'date-fns'
 import { STablePrint } from '../../../styles/tableStyles'
 
 import { useTimeslipsQuery } from '../../timeslips/timeslipsApiSlice'
 
 const headerProps = (props, { column }) => getStyles(props, column.align)
-const cellProps = (props, { cell }) => getStyles(props, cell.column.align)
+//const cellProps = (props, { cell }) => getStyles(props, cell.column.align)
 const getStyles = (props, align = 'left') => [
   props,
   {
@@ -72,12 +71,8 @@ function Table({ columns, data }) {
   )
 }
 
-export function BillDetail({ invoice }) {
-  const {
-    data: timeslips,
-    isLoading,
-    isSuccess,
-  } = useTimeslipsQuery(`invoice=${invoice}`)
+export function InvoiceDetail({ invoice }) {
+  const { data: timeslips, isLoading } = useTimeslipsQuery(`invoice=${invoice}`)
 
   if (isLoading) {
     return <div>Loading...</div>

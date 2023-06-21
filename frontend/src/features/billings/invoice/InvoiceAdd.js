@@ -18,9 +18,9 @@ import {
 import { SButton } from '../../../styles/buttonStyles'
 import { s } from '../../../styles/variables'
 
-import { BillAddDetail } from './BillAddDetail'
+import { InvoiceAddDetail } from './InvoiceAddDetail'
 import { useClientQuery } from '../../clients/clientsApiSlice'
-import { useCreateInvoiceMutation } from './billsApiSlice'
+import { useCreateInvoiceMutation } from './invoicesApiSlice'
 import { useInvoiceTimeslipMutation } from '../../timeslips/timeslipsApiSlice'
 import { clearBilling } from '../billingSlice'
 
@@ -28,7 +28,7 @@ const addDecimals = (num) => {
   return (Math.round(num * 100) / 100).toFixed(2)
 }
 
-const BillAdd = () => {
+const InvoiceAdd = () => {
   const { asOfDate, clientId, items, timeAmount, hours } = useSelector(
     (state) => state.billing
   )
@@ -212,10 +212,10 @@ const BillAdd = () => {
         </SFlexCol>
       </SFlexContainer>
       <SFixedContainer height='30rem' overflow='auto'>
-        <BillAddDetail />
+        <InvoiceAddDetail />
       </SFixedContainer>
     </SFixedContainer>
   )
 }
 
-export default BillAdd
+export default InvoiceAdd
