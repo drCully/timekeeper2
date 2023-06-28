@@ -21,7 +21,7 @@ const createInvoice = asyncHandler(async (req, res) => {
 // @route   GET /invoices
 // @access  Public
 const getInvoices = asyncHandler(async (req, res) => {
-  const { number, client } = req.query
+  const { number, client, status } = req.query
 
   let condition = {}
   if (number) {
@@ -29,6 +29,9 @@ const getInvoices = asyncHandler(async (req, res) => {
   }
   if (client) {
     condition['client'] = { $regex: new RegExp(client), $options: 'i' }
+  }
+  if (status) {
+    condition['status'] = status
   }
 
   const invoices = await Invoice.find(condition).populate('client', 'name')

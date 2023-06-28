@@ -66,7 +66,7 @@ export function InvoiceAddDetail() {
     {
       headerName: 'Actions',
       field: 'id',
-      cellRendererFramework: (params) => (
+      cellRenderer: (params) => (
         <div>
           <Link to={`/timeslips/${params.data._id}`}>
             <FaRegEdit

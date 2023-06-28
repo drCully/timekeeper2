@@ -84,7 +84,7 @@ const getTimeslips = asyncHandler(async (req, res) => {
 const getTimeslip = asyncHandler(async (req, res) => {
   const timeslip = await Timeslip.findById(req.params.id).populate({
     path: 'invoice',
-    selecte: 'number',
+    select: 'number',
   })
 
   if (timeslip) {

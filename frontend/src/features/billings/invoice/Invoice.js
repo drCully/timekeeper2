@@ -19,7 +19,7 @@ import LogoImg from './clientlogo.png'
 import { useInvoiceQuery, useUpdateInvoiceMutation } from './invoicesApiSlice'
 import {
   useTimeslipsQuery,
-  useTimeslipBillingMutation,
+  useUpdateTimeslipMutation,
 } from '../../timeslips/timeslipsApiSlice'
 import { InvoiceDetail } from './InvoiceDetail'
 
@@ -38,13 +38,13 @@ const Bill = () => {
   const { data: timeslips, isSuccess } = useTimeslipsQuery(`invoice=${id}`)
 
   const [updateInvoice] = useUpdateInvoiceMutation()
-  const [updateTime] = useTimeslipBillingMutation()
+  const [updateTime] = useUpdateTimeslipMutation()
 
   const handleUnpost = async (id) => {
     if (window.confirm('Are you sure you want to VOID this invoice? ')) {
       if (isSuccess) {
         let updatedValue = { ...invoice }
-        updatedValue.client = null
+        updatedValue.client = undefined
         updatedValue.subTotal = 0
         updatedValue.salesTax = 0
         updatedValue.status = 'void'
@@ -53,7 +53,7 @@ const Bill = () => {
         timeslips.map(async (time) => {
           let updatedValue = { ...time }
           updatedValue.billed = false
-          updatedValue.invoice = null
+          updatedValue.invoice = undefined
           await updateTime(updatedValue)
         })
 

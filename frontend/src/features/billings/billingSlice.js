@@ -3,9 +3,9 @@ import { format } from 'date-fns'
 
 const initialState = {
   asOfDate: format(new Date(), 'yyyy-MM-dd'),
-  clientId: null,
+  clientId: undefined,
   items: [],
-  selectedItems: null,
+  selectedItems: undefined,
   timeAmount: 0,
   hours: 0,
 }
@@ -34,9 +34,9 @@ const billingSlice = createSlice({
     },
     clearBilling: (state, action) => {
       state.asOfDate = format(new Date(), 'yyyy-MM-dd')
-      state.clientId = null
+      state.clientId = undefined
       state.items = []
-      state.selectedItems = null
+      state.selectedItems = undefined
       state.timeAmount = 0
       state.hours = 0
     },

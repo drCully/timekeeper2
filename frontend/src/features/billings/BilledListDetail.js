@@ -12,7 +12,11 @@ import { TableLayout } from '../../components/TableLayout'
 import { useInvoicesQuery } from './invoice/invoicesApiSlice'
 
 export function BilledListDetail() {
-  const { data: invoices, isLoading, isSuccess } = useInvoicesQuery()
+  const {
+    data: invoices,
+    isLoading,
+    isSuccess,
+  } = useInvoicesQuery('status=posted')
 
   const [tableData, setTableData] = useState(null)
 

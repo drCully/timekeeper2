@@ -16,6 +16,7 @@ import { setLastDate, previousDate, nextDate } from '../sessionSlice'
 
 const TimeslipsList = () => {
   const dispatch = useDispatch()
+
   const { lastDate } = useSelector((state) => state.session)
   if (!lastDate) {
     const newDate = format(new Date(), 'yyyy-MM-dd')
