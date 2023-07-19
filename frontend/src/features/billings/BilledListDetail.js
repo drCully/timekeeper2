@@ -7,7 +7,7 @@ import {
   useRowSelect,
   useSortBy,
 } from 'react-table'
-import { format, parseISO } from 'date-fns'
+import { format, addHours, parseISO } from 'date-fns'
 import { TableLayout } from '../../components/TableLayout'
 import { useInvoicesQuery } from './invoice/invoicesApiSlice'
 
@@ -41,7 +41,7 @@ const TableInstance = ({ tableData }) => {
         accessor: 'date',
         Cell: ({ value }) => (
           <div style={{ textAlign: 'center' }}>
-            {format(parseISO(value), 'MM/dd/yyyy')}
+            {format(addHours(parseISO(value), 8), 'MM/dd/yyyy')}
           </div>
         ),
         width: 40,

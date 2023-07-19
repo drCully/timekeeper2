@@ -81,7 +81,7 @@ const InvoiceAdd = () => {
     })
 
     dispatch(clearBilling())
-    navigate('/billings')
+    navigate(`/billings/${invoiceResult.data._id}`)
     toast.success('Invoice Added Successfully')
   }
 
